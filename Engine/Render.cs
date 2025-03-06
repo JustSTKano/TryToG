@@ -44,20 +44,8 @@ namespace TryToG.Engine
                     CellType.Box => Brushes.Orange,
                     CellType.Player => Brushes.Red,
                     _=> throw new NotImplementedException()
-            }
+                }
             };
-
-           /* switch (color)
-            {
-                case CellType.None: Square.Fill = Brushes.White; break;
-                case CellType.Wall: Square.Fill = Brushes.Black; break;
-                case CellType.Lose: Square.Fill = Brushes.Blue; break;
-                case CellType.Win: Square.Fill = Brushes.Green; break;
-                case CellType.Box: Square.Fill = Brushes.Orange; break;
-                case CellType.Player: Square.Fill = Brushes.Red; break;
-                default: throw new NotImplementedException();
-            }*/
-
             Square.Points = new PointCollection()
             {
                 new Point(x, y),
