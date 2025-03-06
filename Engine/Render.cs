@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using TryToG.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using TryToG.Data.Cells;
 
 namespace TryToG.Engine
 {
@@ -18,34 +19,44 @@ namespace TryToG.Engine
             {
                 for (int j = 0; j < Reader.Size.x; j++)
                 {
-                    Canvas.Children.Add(SquareGen((j + 1) * SizeCell, (i + 1) * SizeCell, Reader.Cell[i, j].Type)); //Map[i][j]
-
+                    Canvas.Children.Add(SquareGen((j + 1) * SizeCell, (i + 1) * SizeCell, Reader.Cell[i, j].Type));
                 }
             }
-            //Reader.Box;
             Canvas.Children.Add(SquareGen((Reader.Player.Coordinates.x + 1) * SizeCell, (Reader.Player.Coordinates.y + 1) * SizeCell, Reader.Player.Type));
-            Reader.Box.ForEach(b => {
+            Reader.Box.ForEach(b => 
+            {
                 Canvas.Children.Add(SquareGen((b.Coordinates.x + 1) * SizeCell, (b.Coordinates.y + 1) * SizeCell, b.Type));
             });
 
         }
 
-        private static Polyline SquareGen(double x, double y, int color)   // Генерация ячеек с заданными параметрами
+        private static Polyline SquareGen(double x, double y, CellType color)   // Генерация ячеек с заданными параметрами
         {
-            Polyline Square = new Polyline();
-
-            Square.Stroke = Brushes.Black;
-            switch (color)
+            Polyline Square = new()
             {
-                case 0: Square.Fill = Brushes.White; break;
-                case 1: Square.Fill = Brushes.Black; break;
-                case 2: Square.Fill = Brushes.Blue; break;
-                case 3: Square.Fill = Brushes.Green; break;
-                case 4: Square.Fill = Brushes.Orange; break;
-                case 5: Square.Fill = Brushes.Red; break;
-                default: throw new NotImplementedException();
-
+                Stroke = Brushes.Black,
+                Fill = color switch
+                {
+                    CellType.None => Brushes.White,
+                    CellType.Wall => Brushes.Black,
+                    CellType.Lose => Brushes.Blue,
+                    CellType.Win => Brushes.Green,
+                    CellType.Box => Brushes.Orange,
+                    CellType.Player => Brushes.Red,
+                    _=> throw new NotImplementedException()
             }
+            };
+
+           /* switch (color)
+            {
+                case CellType.None: Square.Fill = Brushes.White; break;
+                case CellType.Wall: Square.Fill = Brushes.Black; break;
+                case CellType.Lose: Square.Fill = Brushes.Blue; break;
+                case CellType.Win: Square.Fill = Brushes.Green; break;
+                case CellType.Box: Square.Fill = Brushes.Orange; break;
+                case CellType.Player: Square.Fill = Brushes.Red; break;
+                default: throw new NotImplementedException();
+            }*/
 
             Square.Points = new PointCollection()
             {

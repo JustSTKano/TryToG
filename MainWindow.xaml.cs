@@ -18,7 +18,6 @@ public partial class MainWindow : Window
 
         Render.RenderMap(Reader, Canvas);
 
-        //ReadMap();
     }
 
 
@@ -26,9 +25,8 @@ public partial class MainWindow : Window
     {
         Movement.Move(Reader, e.Key);
 
-
-        Render.RenderMap(Reader, Canvas);
         Reader.WinLose(Reader.Cell[Reader.Player.Coordinates.y, Reader.Player.Coordinates.x].Type);
+
         Render.RenderMap(Reader, Canvas);
     }
 

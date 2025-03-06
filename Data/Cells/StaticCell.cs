@@ -3,7 +3,8 @@ namespace TryToG.Data.Cells
 {
     public class StaticCell
     {
-        public int Type { get; set; }
+        public CellType Type { get; set; }
+        //public int Type { get; set; }
 
     }
 }

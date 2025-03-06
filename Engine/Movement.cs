@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using TryToG.Data;
+using TryToG.Data.Cells;
 
 namespace TryToG.Engine
 {
@@ -16,15 +17,13 @@ namespace TryToG.Engine
 
                 var nextCellBox = GetNextLocation(Reader.Box[index].Coordinates, key);
 
-                if (Reader.Cell[nextCellBox.y, nextCellBox.x].Type != 1)
+                if (Reader.Cell[nextCellBox.y, nextCellBox.x].Type != CellType.Wall && !(Reader.Box.Exists(b => b.Coordinates.x == nextCellBox.x && b.Coordinates.y == nextCellBox.y)))
                 {
-
                     Reader.Box[index].Coordinates = nextCellBox;
                     Reader.Player.Coordinates = nextCell;
                 }
-
             }
-            else if (Reader.Cell[nextCell.y, nextCell.x].Type != 1)
+            else if (Reader.Cell[nextCell.y, nextCell.x].Type != CellType.Wall)
             {
                 Reader.Player.Coordinates = nextCell;
             }

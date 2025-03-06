@@ -46,14 +46,14 @@ namespace TryToG.Data
                 {
                     Cell[i, j] = new()
                     {
-                        Type = linestr[j],
+                        Type = (CellType)linestr[j],
                     };
                     if (linestr[j] == 4)
                     {
                         Cell[i, j].Type = 0;
                         Box.Add(new()
                         {
-                            Type = linestr[j],
+                            Type = (CellType)linestr[j],
                             Coordinates = (j, i)
                         });
                     }
@@ -62,16 +62,17 @@ namespace TryToG.Data
                         Cell[i, j].Type = 0;
                         Player = new()
                         {
-                            Type = linestr[j],
+                            Type = (CellType)linestr[j],
                             Coordinates = (j, i)
                         };
                     } 
                 }
             }
+
         }
-        public void WinLose(int check) //Проверка ячейки ()
+        public void WinLose(CellType check) //Проверка ячейки ()
         {
-            if (check == 3)
+            if (check == CellType.Win)
             {
                 lvl++;
                 FileInfo what = new FileInfo($"{Pathlevel}level{lvl}.txt");
@@ -87,7 +88,7 @@ namespace TryToG.Data
                 }
 
             }
-            if (check == 2)
+            if (check == CellType.Lose)
             {
                 ReadMap();
             }
