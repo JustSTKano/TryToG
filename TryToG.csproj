@@ -9,7 +9,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<Content Include="Levels\*">
+		<Content Include="Data\Levels\*">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
