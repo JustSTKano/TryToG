@@ -1,7 +1,7 @@
 ﻿
 namespace TryToG.Data.Cells
 {
-    public enum CellType
+    internal enum CellType
     {
         None = 0,
         Wall = 1,

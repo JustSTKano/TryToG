@@ -19,43 +19,38 @@ namespace TryToG.Engine
             {
                 for (int j = 0; j < Reader.Size.x; j++)
                 {
-                    Canvas.Children.Add(SquareGen((j + 1) * SizeCell, (i + 1) * SizeCell, Reader.Cell[i, j].Type));
+                    Canvas.Children.Add(SquareGen((j + 1) * SizeCell, (i + 1) * SizeCell, Reader.Cells[i, j].Type));
                 }
             }
             Canvas.Children.Add(SquareGen((Reader.Player.Coordinates.x + 1) * SizeCell, (Reader.Player.Coordinates.y + 1) * SizeCell, Reader.Player.Type));
-            Reader.Box.ForEach(b => 
+            Reader.Boxes.ForEach(b => 
             {
                 Canvas.Children.Add(SquareGen((b.Coordinates.x + 1) * SizeCell, (b.Coordinates.y + 1) * SizeCell, b.Type));
             });
 
         }
 
-        private static Polyline SquareGen(double x, double y, CellType color)   // Генерация ячеек с заданными параметрами
+        private static Polyline SquareGen(double x, double y, CellType color) => new()
         {
-            Polyline Square = new()
+            Stroke = Brushes.Black,
+            Fill = color switch
             {
-                Stroke = Brushes.Black,
-                Fill = color switch
-                {
-                    CellType.None => Brushes.White,
-                    CellType.Wall => Brushes.Black,
-                    CellType.Lose => Brushes.Blue,
-                    CellType.Win => Brushes.Green,
-                    CellType.Box => Brushes.Orange,
-                    CellType.Player => Brushes.Red,
-                    _=> throw new NotImplementedException()
-                }
-            };
-            Square.Points = new PointCollection()
+                CellType.None => Brushes.White,
+                CellType.Wall => Brushes.Black,
+                CellType.Lose => Brushes.Blue,
+                CellType.Win => Brushes.Green,
+                CellType.Box => Brushes.Orange,
+                CellType.Player => Brushes.Red,
+                _ => throw new NotImplementedException()
+            },
+            Points = new PointCollection()
             {
                 new Point(x, y),
                 new Point(x, y + SizeCell),
                 new Point(x + SizeCell, y + SizeCell),
                 new Point(x + SizeCell, y),
                 new Point(x, y)
-            };
-
-            return Square;
-        }
+            }
+        };
     }
 }
