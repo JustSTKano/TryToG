@@ -16,14 +16,14 @@ namespace TryToG.Data
 
         public List<BoxCell> Boxes { get; private set; } = new List<BoxCell>();
 
-        public DynamicCell Player { get; private set; }
+        public PlayerCell Player { get; private set; }
 
         private static (int x, int y) GetMaxPositions(string[] pos) => (pos.Select(s => s.Split().Length).ToArray().Max(), pos.Length);
             
         public Reader(string levelsFolder)
         {
             Pathlevel = levelsFolder;
-            Player = new(CellType.Player, (1, 1));
+            Player = new((1, 1));
 
             if (Directory.Exists(Pathlevel))
             {
@@ -60,11 +60,10 @@ namespace TryToG.Data
                     {
                         Cells[i, j] = new StaticCell(CellType.None);
 
-                        Player = new((CellType)linestr[j], (j, i));
+                        Player = new((j, i));
                     } 
                 }
             }
-
         }
 
         /// <summary>
@@ -76,7 +75,7 @@ namespace TryToG.Data
             if (check == CellType.Win)
             {
                 lvl++;
-                FileInfo what = new FileInfo($"{Pathlevel}level{lvl}.txt");
+                FileInfo what = new($"{Pathlevel}level{lvl}.txt");
                 if (what.Exists)
                 {
                     ReadMap();

@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using TryToG.Data;
-using TryToG.Data.Cells;
 using TryToG.Engine;
 
 namespace TryToG;
