@@ -8,20 +8,39 @@ namespace TryToG.Engine
 {
     class Control
     {
+        /// <summary>
+        /// Проверка захвата объекта
+        /// </summary>
         public static bool GrabStatus = false;
+
+        /// <summary>
+        /// Проверка перемещения
+        /// </summary>
         public static bool MoveStatus = false;
+
+        /// <summary>
+        /// Индекс захваченного объекта
+        /// </summary>
         public static int idGrab;
 
+        /// <summary>
+        /// Получение клавиши управления
+        /// </summary>
+        /// <param name="Reader"></param>
+        /// <param name="key"></param>
         public static void GetCommand(Reader Reader, Key key)
         {
             if (key == Key.Space) { Grab(Reader); }
             else Action(Reader, key);
      
         }
-
+        /// <summary>
+        /// Перемещение игрока и/или связанных с ним объекта/ов
+        /// </summary>
+        /// <param name="Reader"></param>
+        /// <param name="key"></param>
         public static void Action(Reader Reader, Key key)
         {
-            MoveStatus = false;
             Reader.Player.Coordinates = Move(Reader, key, Reader.Player.Coordinates);
 
             if (GrabStatus && MoveStatus)
@@ -52,7 +71,13 @@ namespace TryToG.Engine
             }
             else { GrabStatus = false; }
         }
-
+        /// <summary>
+        /// Логика перемещения
+        /// </summary>
+        /// <param name="Reader"></param>
+        /// <param name="key"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
         public static (int x, int y)Move(Reader Reader, Key key, (int x, int y)location)
         {
             var nextCell = GetNextLocation(location, key);   // корды игрока на след ячейке
@@ -79,7 +104,12 @@ namespace TryToG.Engine
             return location;
         }
 
-
+        /// <summary>
+        /// Получение возможной следующей позиции
+        /// </summary>
+        /// <param name="Position"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         private static (int x, int y) GetNextLocation((int x, int y) Position, Key key) => key switch
         {
             Key.Right => (Position.x + 1, Position.y),

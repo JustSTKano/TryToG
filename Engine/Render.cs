@@ -9,9 +9,17 @@ namespace TryToG.Engine
 {
     internal static class Render
     {
-        private const int SizeCell = 50;                // Размер ячейки
+        /// <summary>
+        /// Константа размера ячейки
+        /// </summary>
+        private const int SizeCell = 50;                
 
-        public static void RenderMap(Reader Reader, Canvas Canvas)  // Отрисовка карты и игрока
+        /// <summary>
+        /// Отрисовка карты и объектов
+        /// </summary>
+        /// <param name="Reader"></param>
+        /// <param name="Canvas"></param>
+        public static void RenderMap(Reader Reader, Canvas Canvas) 
         {
             Canvas.Children.Clear();
 
@@ -29,7 +37,14 @@ namespace TryToG.Engine
             });
 
         }
-
+        /// <summary>
+        /// Отрисовка единичной ячейки
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         private static Polyline SquareGen(double x, double y, CellType color) => new()
         {
             Stroke = Brushes.Black,

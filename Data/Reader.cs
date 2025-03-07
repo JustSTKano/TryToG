@@ -6,10 +6,17 @@ namespace TryToG.Data
 {
     class Reader
     {
+        /// <summary>
+        /// Путь до файлов уровней
+        /// </summary>
         public string Pathlevel;
-        
+        /// <summary>
+        /// Переменная текущего уровня
+        /// </summary>
         public int lvl = 1;
-        
+        /// <summary>
+        /// Размерность игрового поля
+        /// </summary>
         public (int x, int y) Size { get; private set; }
 
         public StaticCell[,] Cells { get; private set; } = new StaticCell[0, 0];
@@ -17,9 +24,17 @@ namespace TryToG.Data
         public List<BoxCell> Boxes { get; private set; } = new List<BoxCell>();
 
         public PlayerCell Player { get; private set; }
-
+        /// <summary>
+        /// Получение размерности игрокого поля
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
         private static (int x, int y) GetMaxPositions(string[] pos) => (pos.Select(s => s.Split().Length).ToArray().Max(), pos.Length);
-            
+        
+        /// <summary>
+        /// Проверка наличия файлов
+        /// </summary>
+        /// <param name="levelsFolder"></param>
         public Reader(string levelsFolder)
         {
             Pathlevel = levelsFolder;
@@ -31,7 +46,10 @@ namespace TryToG.Data
             }           
         }
 
-        public void ReadMap()   //Чтение файла с картой, заполнение матрицы
+        /// <summary>
+        /// Чтение файла, заполнение объектов
+        /// </summary>
+        public void ReadMap() 
         {
             BoxInit();
 

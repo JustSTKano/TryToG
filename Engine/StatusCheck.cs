@@ -13,10 +13,13 @@ namespace TryToG.Engine
 {
     class StatusCheck
     {
+        /// <summary>
+        /// Проверка ячейки на условия победы/поражения
+        /// </summary>
+        /// <param name="check"></param>
+        /// <param name="Reader"></param>
         public static void WinLose(CellType check, Reader Reader) //Проверка ячейки ()
         {
-            
-
             if (check == CellType.Lose)
             {
                 Control.GrabStatus = false;
@@ -37,11 +40,14 @@ namespace TryToG.Engine
                     Reader.lvl = 1;
                     Reader.ReadMap();
                 }
-
             }
-            
         }
 
+        /// <summary>
+        /// Проверка наличия следующего файла уровня
+        /// </summary>
+        /// <param name="Reader"></param>
+        /// <returns></returns>
         public static bool CheckNextLvl (Reader Reader)
         {
             var temp = Reader.lvl;
@@ -50,7 +56,5 @@ namespace TryToG.Engine
             FileInfo what = new($"{Reader.Pathlevel}level{temp}.txt");
             return what.Exists;
         }
-
-
     }
 }
