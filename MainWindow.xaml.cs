@@ -13,7 +13,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        
+
         Reader = new Reader("Data/Levels\\");
         
         Render.RenderMap(Reader, Canvas);
@@ -21,9 +21,10 @@ public partial class MainWindow : Window
 
     private void Window_KeyDown(object sender, KeyEventArgs e)    //Управление
     {
-        Movement.Move(Reader, e.Key);
+        Control.GetCommand(Reader, e.Key);
 
-        Reader.WinLose(Reader.Cells[Reader.Player.Coordinates.y, Reader.Player.Coordinates.x].Type);
+        if (!StatusCheck.CheckNextLvl(Reader)) Render.RenderMap(Reader, Canvas);
+        StatusCheck.WinLose(Reader.Cells[Reader.Player.Coordinates.y, Reader.Player.Coordinates.x].Type, Reader);
 
         Render.RenderMap(Reader, Canvas);
     }

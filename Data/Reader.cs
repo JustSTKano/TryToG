@@ -6,9 +6,9 @@ namespace TryToG.Data
 {
     class Reader
     {
-        private readonly string Pathlevel;
+        public string Pathlevel;
         
-        private int lvl = 1;
+        public int lvl = 1;
         
         public (int x, int y) Size { get; private set; }
 
@@ -33,7 +33,7 @@ namespace TryToG.Data
 
         public void ReadMap()   //Чтение файла с картой, заполнение матрицы
         {
-            CleanBox();
+            BoxInit();
 
             var str = File.ReadAllLines($"{Pathlevel}level{lvl}.txt");
 
@@ -66,38 +66,9 @@ namespace TryToG.Data
             }
         }
 
-        /// <summary>
-        /// Хуета
-        /// </summary>
-        /// <param name="check"></param>
-        public void WinLose(CellType check) //Проверка ячейки ()
-        {
-            if (check == CellType.Win)
-            {
-                lvl++;
-                FileInfo what = new($"{Pathlevel}level{lvl}.txt");
-                if (what.Exists)
-                {
-                    ReadMap();
-                }
-                else
-                {
-                    MessageBox.Show("Сорян, уровней нет больше. Давай по новой!");
-                    lvl = 1;
-                    ReadMap();
-                }
-
-            }
-            if (check == CellType.Lose)
-            {
-                ReadMap();
-            }
-        }
-
-        private void CleanBox()
+        private void BoxInit()
         {
             Boxes = new List<BoxCell>();
         }
-
     }
 }
